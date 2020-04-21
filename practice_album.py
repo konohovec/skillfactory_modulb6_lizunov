@@ -2,18 +2,12 @@ import sqlalchemy as sa
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-
 DB_PATH = "sqlite:///albums.sqlite3"
 Base = declarative_base()
-
 class Error(Exception):
     pass
-
-
 class AlreadyExists(Error):
     pass
-
-
 class Album(Base):
 
     __tablename__ = "album"
@@ -24,19 +18,16 @@ class Album(Base):
     genre = sa.Column(sa.TEXT)
     album = sa.Column(sa.TEXT)
 
-
 def connect_db():
     engine = sa.create_engine(DB_PATH)
     Base.metadata.create_all(engine)
     session = sessionmaker(engine)
     return session()
 
-
 def find(artist):
     session = connect_db()
     albums = session.query(Album).filter(Album.artist == artist).all()
     return albums
-
 
 def save(year, artist, genre, album):
     assert isinstance(year, int), "Incorrect date"
