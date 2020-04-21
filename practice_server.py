@@ -17,14 +17,12 @@ def albums(artist):
         result += "<br>".join(album_names)
     return result
 
-
 @route("/albums", method="POST")
 def create_album():
     year = request.forms.get("year")
     artist = request.forms.get("artist")
     genre = request.forms.get("genre")
     album_name = request.forms.get("album")
-
     try:
         year = int(year)
     except ValueError:
@@ -41,6 +39,5 @@ def create_album():
         result = "Альбом #{} успешно сохранен".format(new_album.id)
     return result
     
-
 if __name__ == "__main__":
     run(host="localhost", port=8080, debug=True)
